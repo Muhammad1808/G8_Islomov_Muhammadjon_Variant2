@@ -5,7 +5,7 @@ namespace Imtihon_2.Services
 {
     public partial  class Library
     {
-        
+        private List<Book> BuyurtmaList = new List<Book>();
         public void AttachBookAndCategories(int bookId, int categoryId)
         {
             var book=books.FirstOrDefault(b=>b.Id==bookId);
@@ -57,26 +57,46 @@ namespace Imtihon_2.Services
                 Console.WriteLine("Invalid book Id");
                 return;
             }
-            var buyurtmalar = new Buyurtmalar
-            {
-                Book = book,
-                BookId = bookId
-            };
-            book.Buyurtmalar.Add(buyurtmalar);
+            BuyurtmaList.Add(book);
         }
 
         public void GetBuyurtma()
         {
             if (books.Count > 0)
             {
-                foreach(var book in books)
+                Console.WriteLine("Buyurtmalar: ");
+                foreach(var book in BuyurtmaList)
                 {
-                    foreach(var bc in book.Buyurtmalar)
-                    {
-                        Console.WriteLine($"Book: {bc.Book.Name}");
-                    }
+                    Console.WriteLine($"Book: {book.Name}");
                 }
             }
+        }
+
+        public void Report()
+        {
+            var bookCount=new Dictionary<int, int>();
+            foreach(var book in BuyurtmaList)
+            {
+                if (bookCount.ContainsKey(book.Id))
+                {
+                    bookCount[book.Id]++;
+                }
+                else
+                {
+                    bookCount[book.Id] = 1;
+                }
+            }
+            int maxCount = 0;
+            Book bookMax = null;
+            foreach(var x in bookCount)
+            {
+                if(x.Value > maxCount)
+                {
+                    maxCount = x.Value;
+                    bookMax=books.FirstOrDefault(b => b.Id == x.Key);
+                }
+            }
+            Console.WriteLine($"Eng ko`p buyurtma qilingan kitob: {bookMax.Name}");
         }
 
     }

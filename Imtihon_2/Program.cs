@@ -47,7 +47,8 @@ public static class Program
             Console.WriteLine("4. Kitob va kategoriyalarni ulash");
             Console.WriteLine("5. Kitob va kategoriyalarni chiqarish");
             Console.WriteLine("6. Buyurtmalar");
-            Console.WriteLine("7. Back");
+            Console.WriteLine("7. Report");
+            Console.WriteLine("8. Back");
             Console.Write("Tanlang: ");
             var choice = Console.ReadLine();
             Console.Clear();
@@ -227,6 +228,11 @@ public static class Program
                     Console.Clear();
                     break;
                 case "7":
+                    library.Report();
+                    Console.ReadKey();
+                    Console.Clear();
+                    break;
+                case "8":
                     back = true; Console.Clear(); break;
                 default:
                     Console.WriteLine("Xato qaytadan urinib ko`ring");
